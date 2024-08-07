@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import AuthFormTemplate from "../components/AuthFormTemplate.vue";
+import { useCounterStore } from "~/stores/Counter";
+const store = useCounterStore();
 </script>
 
 <template>
@@ -10,4 +12,6 @@ import AuthFormTemplate from "../components/AuthFormTemplate.vue";
       redirect="register"
     />
   </main>
+  <!-- <h1>count = {{ store.count }}</h1>
+  <button @click="store.increment">increment</button> -->
 </template>

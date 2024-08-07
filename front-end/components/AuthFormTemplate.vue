@@ -1,4 +1,9 @@
 <script>
+import { useFormStore } from "~/stores/FormStore";
+const formStore = useFormStore();
+const { isLogin, name, lastname, email, password, toggleForm, handleSubmit } =
+  formStore;
+
 export default {
   props: {
     title: {
@@ -148,23 +153,23 @@ export default {
           </div>
         </div>
         <div class="flex-auto p-6">
-          <form role="form text-left">
-            <div class="mb-4">
+          <form>
+            <div v-if="!isLogin" class="mb-4">
               <input
                 aria-describedby="email-addon"
                 aria-label="Name"
                 placeholder="Name"
                 class="text-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow"
-                type="text"
+                v-model="name"
               />
             </div>
-            <div class="mb-4">
+            <div v-if="!isLogin" class="mb-4">
               <input
                 aria-describedby="email-addon"
                 aria-label="LastName"
                 placeholder="LastName"
                 class="text-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow"
-                type="text"
+                v-model="lastname"
               />
             </div>
             <div class="mb-4">
@@ -173,7 +178,7 @@ export default {
                 aria-label="Email"
                 placeholder="Email"
                 class="text-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow"
-                type="email"
+                v-model="email"
               />
             </div>
             <div class="mb-4">
@@ -182,7 +187,7 @@ export default {
                 aria-label="Password"
                 placeholder="Password"
                 class="text-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow"
-                type="password"
+                v-model="password"
               />
             </div>
             <div class="mb-1">
@@ -195,6 +200,7 @@ export default {
                 aria-describedby="email-addon"
                 aria-label="Role"
                 placeholder="Role"
+                v-model="role"
                 class="text-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow"
               >
                 <option value="volvo">Admin</option>
@@ -231,13 +237,18 @@ export default {
                 class="inline-block w-full px-6 py-3 mt-6 mb-2 font-bold text-center text-white uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer active:opacity-85 hover:scale-102 hover:shadow-soft-xs leading-pro text-xs ease-soft-in tracking-tight-soft shadow-soft-md bg-150 bg-x-25 bg-gradient-to-tl from-gray-900 to-slate-800 hover:border-slate-700 hover:bg-slate-700 hover:text-white"
                 type="button"
               >
-                {{ btn_submit }}
+                <button type="submit">
+                  {{ isLogin ? "Login" : "Register" }}
+                </button>
               </button>
             </div>
             <p class="mt-4 mb-0 leading-normal text-sm">
               Don't have an account yet?
               <!-- <a class="font-bold text-slate-700" href="../pages/sign-in.html"> -->
-              <NuxtLink class="font-bold text-slate-700" :to="redirect"
+              <NuxtLink
+                class="font-bold text-slate-700"
+                @click="toggleForm"
+                :to="redirect"
                 >{{ redirect }}
               </NuxtLink>
             </p>
