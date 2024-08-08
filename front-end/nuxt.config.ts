@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: ["@pinia/nuxt", "@nuxt-alt/auth", "@nuxt-alt/http"],
-  compatibilityDate: "2 024-04-03",
+  compatibilityDate: "2024-04-03",
   devtools: { enabled: true },
   css: ["~/assets/css/main.css"],
   postcss: {
@@ -10,7 +10,20 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  http: {
+    baseURL: "http://localhost:4000", // Définir l'URL de base ici
+  },
+
   auth: {
-    /* module options */
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: "/api/auth/login", method: "post" },
+          logout: { url: "/api/auth/logout", method: "post" },
+          user: { url: "/api/auth/user", method: "get" },
+        },
+        // tokenRequired: true,
+      },
+    },
   },
 });

@@ -8,11 +8,21 @@
   </main>
 </template>
 
-<script setup>
+<script>
 import UserAuthForm from "~/components/UserAuthForm.vue";
-import { ref } from "vue";
 
-const loginUser = (loggingInfo) => {
-  alert("You clik a buttom");
+export default {
+  components() {
+    UserAuthForm;
+  },
+  methods: {
+    loginUser(loginInfo) {
+      this.$auth.loginWith("local", {
+        data: loginInfo,
+      });
+
+      console.log("Sbibcikckj", loginInfo);
+    },
+  },
 };
 </script>

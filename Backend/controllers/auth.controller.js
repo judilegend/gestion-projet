@@ -20,15 +20,17 @@ const login = async (req, res) => {
 
   try {
     const user = await User.findOne({ where: { email } });
-    if (!user) throw new Error("User not found");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
     const passwordIsValid = await bcrypt.compare(password, user.password);
-    if (!passwordIsValid) throw new Error("Invalid Password!");
+    if (!passwordIsValid) {
+      return res.status(401).json({ message: "Invalid Password!" });
+    }
 
     const token = generateToken(user);
-    console.log(token);
-
-    res.status(200).json({
+    return res.status(200).json({
       id: user.id,
       name: user.name,
       lastname: user.lastname,
@@ -37,7 +39,7 @@ const login = async (req, res) => {
       accessToken: token,
     });
   } catch (err) {
-    res
+    return res
       .status(500)
       .json({ message: err.message || "An error occurred during login." });
   }

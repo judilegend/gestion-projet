@@ -165,6 +165,7 @@ const { errors, validateField, isValid } = useFormValidation(userInfo);
 const handleSubmit = () => {
   if (isValid.value) {
     props.submitForm(userInfo);
+    console.log(userInfo);
   }
 };
 </script>

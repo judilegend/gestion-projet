@@ -11,6 +11,7 @@ const authenticate = (req, res, next) => {
 
   if (!token) {
     return res.status(403).send({ message: "No token provided!" });
+    console.log("fournit un token");
   }
 
   try {
@@ -20,6 +21,7 @@ const authenticate = (req, res, next) => {
     next();
   } catch (err) {
     res.status(401).send({ message: "Unauthorized!" });
+    console.log("Vous etes Unauthorized");
   }
 };
 
@@ -27,6 +29,7 @@ const authenticate = (req, res, next) => {
 const isAdmin = (req, res, next) => {
   if (req.userRole !== "admin") {
     return res.status(403).send({ message: "Require Admin Role!" });
+    console.log("Require Admin Role");
   }
   next();
 };
