@@ -1,17 +1,18 @@
-<script setup lang="ts">
-import AuthFormTemplate from "../components/AuthFormTemplate.vue";
-import { useCounterStore } from "~/stores/Counter";
-const store = useCounterStore();
-</script>
-
 <template>
-  <main class="w-full h-screen m-auto flex">
-    <AuthFormTemplate
-      title="Login Page"
-      btn_submit="Login"
+  <main class="flex justify-center items-center h-screen">
+    <UserAuthForm
+      buttonText="Login"
+      :submitForm="loginUser"
       redirect="register"
     />
   </main>
-  <!-- <h1>count = {{ store.count }}</h1>
-  <button @click="store.increment">increment</button> -->
 </template>
+
+<script setup>
+import UserAuthForm from "~/components/UserAuthForm.vue";
+import { ref } from "vue";
+
+const loginUser = (loggingInfo) => {
+  alert("You clik a buttom");
+};
+</script>

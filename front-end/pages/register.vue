@@ -1,13 +1,20 @@
-<script setup lang="ts">
-import AuthFormTemplate from "../components/AuthFormTemplate.vue";
+<script setup>
+import UserAuthForm from "~/components/UserAuthForm.vue";
+
+const registerUser = (registerInfo) => {
+  console.log("User register");
+};
 </script>
 
 <template>
-  <main class="w-full h-screen m-auto flex">
-    <AuthFormTemplate
-      title="Register Page"
+  <main class="flex justify-center items-center h-screen">
+    <UserAuthForm
+      buttonText="Register"
+      hasName
+      hasLastName
+      hasRole
       redirect="login"
-      btn_submit="Register"
+      :submitForm="registerUser"
     />
   </main>
 </template>
