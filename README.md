@@ -22,4 +22,4 @@ This project is a full-stack web application using Node.js, Sequelize, MySQL, Nu
 
 1. **Install Dependencies**:
    ```bash
-   npm install sequelize mysql2
+   npm install 
