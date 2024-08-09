@@ -5,7 +5,13 @@ const app = express();
 const db = require("./models");
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:8080", // or '*' for all origins
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // Routes

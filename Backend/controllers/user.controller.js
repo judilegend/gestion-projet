@@ -9,9 +9,19 @@ const validateUserInput = ({ name, lastname, email, password }) => {
   }
 };
 const hashPassword = async (password) => {
-  return password ? await bcrypt.hash(password, 10) : undefined;
+  console.log("Hashing password..."); // Improved log message
+  try {
+    if (!password) {
+      throw new Error("Password is required");
+    }
+    const hashedPassword = await bcrypt.hash(password, 10);
+    console.log("Password hashed successfully");
+    return hashedPassword;
+  } catch (error) {
+    console.error("Error hashing password:", error);
+    return undefined;
+  }
 };
-
 // Creer et Save new User
 const create = async (req, res) => {
   try {

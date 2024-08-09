@@ -1,29 +1,37 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ["@pinia/nuxt", "@nuxt-alt/auth", "@nuxt-alt/http"],
-  compatibilityDate: "2024-04-03",
+  modules: [
+    "@pinia/nuxt",
+    // ...Axios module should be included AFTER @nuxtjs/auth
+  ],
   devtools: { enabled: true },
   css: ["~/assets/css/main.css"],
-  postcss: {
-    plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
-    },
+  imports: {
+    dirs: ["stores"],
   },
-  http: {
-    baseURL: "http://localhost:4000", // Définir l'URL de base ici
-  },
-
   auth: {
-    strategies: {
-      local: {
-        endpoints: {
-          login: { url: "/api/auth/login", method: "post" },
-          logout: { url: "/api/auth/logout", method: "post" },
-          user: { url: "/api/auth/user", method: "get" },
-        },
-        // tokenRequired: true,
-      },
+    login: {
+      endpoint: "auth/login",
+      propertyName: "token",
     },
+    logout: {
+      endpoint: "auth/logout",
+      method: "GET",
+      paramTokenName: "",
+      appendToken: false,
+    },
+    user: {
+      endpoint: "auth/user",
+      propertyName: "user",
+      paramTokenName: "",
+      appendToken: false,
+    },
+    storageTokenName: "nuxt-auth-token",
+    tokenType: "Bearer",
+    notLoggedInRedirectTo: "/login",
+    loggedInRedirectTo: "/",
   },
+  // build: {
+  //   transpile: ["pinia"],
+  // },
 });

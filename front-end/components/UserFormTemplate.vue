@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import { useStoreUser } from "~/stores/UseStoreUser";
-const store = useStoreUser();
+import { useUserStore } from "~/stores/userStore";
+const store = useUserStore();
 const handleSubmit = () => {
   if (store.isEditing) {
     store.updateUser(store.editingUserId); // Modifier l'utilisateur

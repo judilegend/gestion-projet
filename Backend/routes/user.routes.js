@@ -4,8 +4,8 @@ const users = require("../controllers/user.controller.js");
 const { authenticate, isAdmin } = require("../middleware/auth.middleware.js");
 
 // CRUD User routes
-router.post("/", [authenticate, isAdmin], users.create);
-router.get("/", [authenticate, isAdmin], users.findAll);
+router.post("/", users.create);
+router.get("/", users.findAll);
 router.put("/:id", [authenticate, isAdmin], users.update);
 router.delete("/:id", [authenticate, isAdmin], users.delete);
 
